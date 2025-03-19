@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "airline": "Lufthansa",
+    "flightNumber": "LH123",
+    "departure": "Tallinn",
+    "arrival": "London",
+    "date": "2024-04-10",
+    "time": "12:30",
+    "price": 120
+  },
+  {
+    "id": 2,
+    "airline": "AirBaltic",
+    "flightNumber": "BT456",
+    "departure": "Tallinn",
+    "arrival": "Riga",
+    "date": "2024-04-11",
+    "time": "15:45",
+    "price": 60
+  }
+]
