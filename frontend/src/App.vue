@@ -9,7 +9,6 @@ import Home from './components/Home.vue'
     <div class="wrapper">
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
 
       </nav>
     </div>

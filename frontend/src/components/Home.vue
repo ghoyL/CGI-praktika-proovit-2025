@@ -1,72 +1,129 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 
-import { ref } from 'vue';
-import { onMounted } from 'vue';
+const departure = ref('');
+const arrival = ref('');
+const flights = ref([]);
+const loading = ref(false);
+const depratureDate = ref("");
 
-const departure = ref("");
-const arrival = ref("");
-const flights = ref([])
-const checkFlights = ref(false)
 // fetch flights data
 async function flightData(allFlights, start, end) {
-  try{
-    let response
+  try {
+    let response;
 
-    if(allFlights){
-      response = await fetch("http://localhost:8080/api/flights");
-      console.log(response)
-    }else{
-       response = await fetch(`http://localhost:8080/api/flights/search?departure=${start}&arrival=${end}`);
-       //console.log(response)
-    }  
-    if(!response.ok){
-      throw new error("Http fetchin error", error)
+    if (allFlights) {
+      response = await fetch('http://localhost:8080/api/flights');
+    }else if (depratureDate){
+      response = await fetch(`http://localhost:8080/api/flights/search?departure=${start}&arrival=${end}&date=${depratureDate.value}`);
+    } else {
+      response = await fetch(`http://localhost:8080/api/flights/search?departure=${start}&arrival=${end}`)
+    }
+    if (!response.ok) {
+      throw new error('Http fetchin error', error);
     }
 
     const data = await response.json();
 
-    if(data.length === 0){
-      checkFlights.value = true
-    }else{
-      checkFlights.value = false
-      console.log(data)
-      flights.value = data;
-    }
-  }catch(error){
+    flights.value = data;
+    loading.value = true;
+  } catch (error) {
     console.log(error)
   }
 }
 
+onMounted(() => {
+  flightData(true);
+})
 
 </script>
 
 <template>
   <div class="container">
     <div class="searchFlights">
-      <input v-model="departure" placeholder="Alugspunkt">
-      <input v-model="arrival" placeholder="Sihtpunkt">
-      <input type="date" id="datePicker" name="date">
-      <input type="date" id="datePicker" name="date" >
-      <input type="number" id="numPeople" name="numPeople" min="1" max="10" value="1">
+      <input class="yep" v-model="departure" placeholder="Alugspunkt" />
+      <input class="yep" v-model="arrival" placeholder="Sihtpunkt" />
+      <input type="date" id="datePicker" name="date" v-model="depratureDate"/>
       <button @click="flightData(false, departure, arrival)">Otsi</button>
-      <button @click="flightData(true, departure, arrival)">Näite kõiki lende</button>
+      <button @click="flightData(true)">Näite kõiki lende</button>
     </div>
     <div class="flights">
-      <h1>Flights</h1>
-      <div v-for="item in flights" :key="item.id" class="showFlight">
-          <p>{{ item.airline }}</p>
-          <p>{{ item.flightNumber }}</p>
+      <div v-if="loading" v-for="item in flights" :key="item.id" class="showFlight">
+        <p>{{ item.airline }}</p>
+        <p>{{ item.flightNumber }}</p>
+        <div class="time">
           <p>{{ item.departure }}</p>
+          <p>{{ item.departureTime }}</p>
+        </div>
+        ------->
+        <div class="time">
           <p>{{ item.arrival }}</p>
-          <p>{{ item.date }}</p>
-          <p>{{ item.time }}</p>
-          <p>{{ item.price }} EUR</p>
-          <button>Buy</button>
-      </div>
-      <div v-if="checkFlights">
-        <h1>No flights found</h1>
+          <p>{{ item.arrivalTime }}</p>
+        </div>
+        <p>{{ item.date }}</p>
+        <p>{{ item.price }} EUR</p>
+        <button @click="$router.push('flightbooking')">Osta</button>
       </div>
     </div>
-    
   </div>
 </template>
+
+<style scoped>
+
+.searchFlights {
+  margin-top: 7%;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flights {
+  margin-top: 50px;
+}
+
+.showFlight {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 730px;
+  margin: 0 auto;
+  gap: 25px;
+  border: 2px black solid;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.container{
+  width: 800px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.showFlight{
+  background-color: white;
+}
+
+</style>
+
+<style>
+body {
+  background-image: url('tes.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  background-attachment: fixed; 
+}
+
+</style>
