@@ -20,17 +20,14 @@ public class JsonDataImporter {
         this.flightRepository = flightRepository;
     }
 
-    public void importFlightsFromJson(InputStream inputStream) throws IOException {  // ✅ Accept InputStream
+    public void importFlightsFromJson(InputStream inputStream) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         
+        // reads the JSON data from the inputStream and converts it into a List of Flight objects.
         List<Flight> flights = objectMapper.readValue(inputStream, 
             objectMapper.getTypeFactory().constructCollectionType(List.class, Flight.class));
-        /*  for (Flight flight : flights) {
-        System.out.println("Parsed Flight: " + flight.getAirline() + ", " + flight.getFlightNumber() + 
-            ", " + flight.getDeparture() + " -> " + flight.getArrival() + ", " + flight.getDate());
-        } */
 
-        flightRepository.saveAll(flights);  // ✅ Save to DB
+        flightRepository.saveAll(flights); 
         System.out.println("Imported " + flights.size() + " flights.");
     }
 }

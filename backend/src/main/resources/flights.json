@@ -4,9 +4,10 @@
     "airline": "Lufthansa",
     "flightNumber": "LH123",
     "departure": "Tallinn",
+    "departureTime": "12:30",
     "arrival": "London",
-    "date": "2024-04-10",
-    "time": "12:30",
+    "arrivalTime": "17:30",
+    "date": "10-04-2025",
     "price": 120
   },
   {
@@ -14,9 +15,21 @@
     "airline": "AirBaltic",
     "flightNumber": "BT456",
     "departure": "Tallinn",
+    "departureTime": "12:30",
     "arrival": "Riga",
-    "date": "2024-04-11",
-    "time": "15:45",
+    "arrivalTime": "13:30",
+    "date": "11-03-2025",
     "price": 60
+  },
+  {
+    "id": 3,
+    "airline": "Lufthansa",
+    "flightNumber": "LH123",
+    "departure": "Riga",
+    "departureTime": "18:30",
+    "arrival": "Tallinn",
+    "arrivalTime": "19:50",
+    "date": "13-03-2025",
+    "price": 120
   }
 ]

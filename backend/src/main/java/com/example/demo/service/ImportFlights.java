@@ -1,3 +1,4 @@
+// import flights data from JSON to the database
 package com.example.demo;
 
 import com.example.demo.service.JsonDataImporter;

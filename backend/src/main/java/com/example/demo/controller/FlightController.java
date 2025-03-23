@@ -1,4 +1,4 @@
-package com.example.demo.controller; // Handle HTTP requests
+package com.example.demo.controller; 
 
 import com.example.demo.models.Flight;
 import com.example.demo.service.FlightService;
@@ -16,21 +16,19 @@ public class FlightController {
         this.flightService = flightService;
     }
 
-    // get all flights
     @GetMapping
     public List<Flight> getAllFlights() {
         return flightService.getAllFlights();
     }
 
-    // Search flights by departure & arrival
+    // search flights by departure & arrival
     @GetMapping("/search")
     public List<Flight> searchFlights(@RequestParam String departure, @RequestParam String arrival) {
         return flightService.searchFlights(departure, arrival);
     }
-
-    // Add a new flight
-    @PostMapping
-    public Flight addFlight(@RequestBody Flight flight) {
-        return flightService.addFlight(flight);
+    // search flights by date
+    public List<Flight> searchFlights(@RequestParam String departure,  @RequestParam String arrival, @RequestParam String date) {
+        return flightService.findFlights(departure, arrival, date);
     }
+
 }

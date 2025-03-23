@@ -22,10 +22,10 @@ public class FlightService {
     public List<Flight> searchFlights(String departure, String arrival) {
         return flightRepository.findByDepartureAndArrival(departure, arrival);
     }
-
-     public Flight addFlight(Flight flight) {
-        return flightRepository.save(flight);
-    } 
+    // search flights by departure & arrival & date
+    public List<Flight> findFlights(String departure, String arrival, String date) {
+        return flightRepository.findByDepartureAndArrivalAndDate(departure, arrival, date);
+    }
 
     public void saveFlights(List<Flight> flights) {
         flightRepository.saveAll(flights);
