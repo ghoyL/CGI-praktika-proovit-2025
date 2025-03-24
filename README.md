@@ -55,7 +55,9 @@ cd frontend
 npm install
 
 npm run dev
+
 ```
+Kui npm töötab, mine: http://localhost:5173/
 
 ### Muu info
 

@@ -41,7 +41,7 @@ onMounted(() => {
 <template>
   <div class="container">
     <div class="searchFlights">
-      <input class="yep" v-model="departure" placeholder="Alugspunkt" />
+      <input class="yep" v-model="departure" placeholder="Alguspunkt" />
       <input class="yep" v-model="arrival" placeholder="Sihtpunkt" />
       <input type="date" id="datePicker" name="date" v-model="depratureDate"/>
       <button @click="flightData(false, departure, arrival)">Otsi</button>
@@ -70,6 +70,14 @@ onMounted(() => {
 
 <style scoped>
 
+.yep{
+  height: 20px;
+}
+
+input::placeholder {
+  font-weight: bold;
+  color: rgb(1, 1, 2);
+}
 .searchFlights {
   margin-top: 7%;
   position: relative;
